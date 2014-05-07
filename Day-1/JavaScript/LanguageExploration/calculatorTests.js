@@ -12,6 +12,27 @@ window.addEventListener("DOMContentLoaded",function(){
 		return result === expectedResult;
 	});
 
+	test("Should be able to add numbers in string format",function(){
+		var number1 = "10",
+			number2 = "20",
+			expectedResult = 30;
+
+		var result = add(number1,number2);
+
+		return result === expectedResult;
+	});
+
+	test("Should be able to treat non-numeric strings as zero",function(){
+		var number1 = "10",
+			number2 = "abc",
+			expectedResult = 10;
+
+		var result = add(number1,number2);
+
+		return result === expectedResult;
+	});
+	
+	
 
 
 });
