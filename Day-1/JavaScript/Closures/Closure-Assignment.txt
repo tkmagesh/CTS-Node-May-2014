@@ -1,0 +1,10 @@
+create a "spinner" object
+
+spinner.up() => return 1
+spinner.up() => return 2
+spinner.up() => return 3
+
+spinner.down() => return 2
+spinner.down() => return 1
+spinner.down() => return 0
+spinner.down() => return -1
