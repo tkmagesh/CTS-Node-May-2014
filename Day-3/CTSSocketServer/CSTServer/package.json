@@ -1,0 +1,14 @@
+{
+  "name": "CSTServer",
+  "version": "0.0.0",
+  "description": "a sample socket server for time stamp ping",
+  "main": "timeStampServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Magesh K",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "nodejs-websocket": "~0.1.5"
+  }
+}
