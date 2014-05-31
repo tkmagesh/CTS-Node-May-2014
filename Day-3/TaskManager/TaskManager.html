@@ -7,11 +7,14 @@
 <body>
 	<h1>Task Manager</h1>
 	<hr>
-	<span>Task :</span>
-	<input type="text" name="" id="txtTask">
-	<input type="button" value="Add Task" id="btnAddTask">
-	<ul id="ulTaskList">
-		<li>Task -1</li>
-	</ul>
+	<form action="/tasks" method="post">
+		<span>Task :</span>
+		<input type="text" name="taskName" id="txtTask">
+		<input type="submit" value="Add Task" id="btnAddTask">
+		<ul id="ulTaskList">
+			
+		</ul>
+	</form>
+	
 </body>
 </html>
