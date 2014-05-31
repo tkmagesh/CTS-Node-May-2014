@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  h1 TaskManager
+  hr
+  form(method="post", action="/tasks/add")
+    span Task :
+    input(type="text", name="taskName")
+    input(type="submit", value="Add Task")
+  ul#ulTaskList
+    each task in list
+      li 
+        if task.isCompleted 
+          span(class="completed") #{task.name}
+        else
+          span #{task.name}
+        a(href="/tasks/toggle?id=#{task.id}") toggle
+  div #{list.length} tasks are found!!
