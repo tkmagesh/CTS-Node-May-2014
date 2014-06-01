@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style>
+	.completed {
+		color : red;
+		text-decoration: line-through;
+		font-style: italic;
+	}
+	</style>
+	<script src="/javascripts/angular.js"></script>
+	<script src="/javascripts/app.js"></script>
+	<script src="/javascripts/factories/Task.js"></script>
+	<script src="/javascripts/factories/taskService.js"></script>
+	<script src="/javascripts/filters/limitLength.js"></script>
+	<script src="/javascripts/controllers/taskController.js"></script>
+</head>
+<body data-ng-app="taskApp" data-ng-controller="taskController">
+	<h1>Task Manager</h1>
+		<input type="checkbox" data-ng-model="filterCompleted">Completed</input>
+		Search : <input type="text" data-ng-model="searchTerm">
+		Size : <input type="text" data-ng-model="taskSize">
+	<hr>
+	<span>Task :</span>
+	<input type="text" name="" id="" data-ng-model="taskName">
+	<input type="button" value="Add Task" id="btnAddTask" data-ng-click="addTask(taskName)">
+	<input type="button" value="Remove Completed" data-ng-click="removeCompleted()">
+	<ul>
+		<li data-ng-repeat="task in tasks | filter:searchTerm" 
+			data-ng-click="toggleCompletion(task)"
+			data-ng-class="{completed : task.isCompleted}"
+			data-ng-show="shouldShow(task)"
+			>{{task.name | limitLength:taskSize}}</li>
+	</ul>
+</body>
+</html>
