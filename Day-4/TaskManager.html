@@ -12,39 +12,63 @@
 	</style>
 	<script src="angular.js"></script>
 	<script>
-	function taskController($scope){
-		$scope.tasks = [];
-		$scope.addTask = function(taskName){
-			var newTask = {
-				name : taskName,
-				isCompleted : false
+	angular
+		.module('taskApp',[])
+		.factory('Task',function(){
+			function Task(name){
+				this.name = name;
+				this.isCompleted = false;
+			}
+			Task.prototype.toggleCompletion = function(){
+				this.isCompleted = !this.isCompleted;
 			};
-			$scope.tasks.push(newTask);
-		};
-		$scope.toggleCompletion = function(task){
-			task.isCompleted = !task.isCompleted;
-		};
-		$scope.removeCompleted = function(){
-			for(var i=$scope.tasks.length-1;i>=0;i--){
-				var task = $scope.tasks[i];
-				if (task.isCompleted)
-					$scope.tasks.splice(i,1);
+			return Task;
+		})
+		.factory('taskService', function(Task){
+			var tasks = [];
+			function addNewTask(taskName){
+				var newTask = new Task(taskName);
+				tasks.push(newTask);
+			}
+			function removeCompletedTasks(){
+				for(var i=tasks.length-1;i>=0;i--){
+					var task = tasks[i];
+					if (task.isCompleted)
+						tasks.splice(i,1);
+				}
+			}
+			return {
+				list : tasks,
+				addNew : addNewTask,
+				removeCompleted : removeCompletedTasks
+			};
+		})
+		.controller('taskController', function($scope, taskService){
+			
+			$scope.tasks = taskService.list;
+			$scope.addTask = function(taskName){
+				taskService.addNew(taskName);
+			};
+			$scope.toggleCompletion = function(task){
+				task.toggleCompletion();
+			};
+			$scope.removeCompleted = function(){
+				taskService.removeCompleted();
+
+			};
+
+			$scope.filterCompleted = false;
+			$scope.shouldShow = function(task){
+				if ($scope.filterCompleted){
+					return task.isCompleted;
+				}
+				return true;
 			}
 
-		};
-
-		$scope.filterCompleted = false;
-		$scope.shouldShow = function(task){
-			if ($scope.filterCompleted){
-				return task.isCompleted;
-			}
-			return true;
-		}
-
-	}
+		});
 	</script>
 </head>
-<body data-ng-app data-ng-controller="taskController">
+<body data-ng-app="taskApp" data-ng-controller="taskController">
 	<h1>Task Manager</h1>
 		<input type="checkbox" data-ng-model="filterCompleted">Completed</input>
 	<hr>
