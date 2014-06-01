@@ -6,9 +6,10 @@
 	<script>
 	(function(){
 		window.addEventListener("DOMContentLoaded",init);
-		var ws = new WebSocket("ws://localhost:9090");
+		var ws ;
 		function init(){
 			document.getElementById("btnSend").addEventListener("click",onBtnSendClick);
+			ws = new WebSocket("ws://localhost:9090");
 			ws.addEventListener("message",onMessageFromServer);
 		}
 		function onBtnSendClick(){

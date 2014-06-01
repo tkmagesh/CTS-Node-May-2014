@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Greeting App</title>
+	<script src="angular.js"></script>
+	<script type="text/javascript">
+		function greetController($scope){
+			$scope.firstName = undefined;
+			$scope.lastName = undefined;
+			$scope.greet = function(){
+				var msg = "Hello " + $scope.firstName + " " + $scope.lastName + ", Have a nice day!!";
+				$scope.greetMessage = msg;
+			};
+			$scope.isFirstNameValid = function(){
+				return !!$scope.firstName;
+			};
+			$scope.isLastNameValid = function(){
+				return !!$scope.lastName;
+			};
+		}
+	</script>
+</head>
+<body ng-app data-ng-controller="greetController">
+	<div>
+		<label for="txtFirstName">First Name :</label>
+		<input type="text" name="firstName" id="txtFirstName" data-ng-model="firstName">
+		<span data-ng-hide="isFirstNameValid()">First Name cannot be empty</span>
+	</div>
+	<div>
+		<label for="txtLastName">Last Name :</label>
+		<input type="text" name="lastName" id="txtLastName" data-ng-model="lastName">
+		<span data-ng-hide="isLastNameValid()">Last Name cannot be empty</span>
+	</div>
+	<div>
+		<input type="button" value="Greet" data-ng-click="greet()">
+	</div>
+	<div>
+		<div>{{greetMessage}}</div>
+	</div>
+</body>
+</html>
